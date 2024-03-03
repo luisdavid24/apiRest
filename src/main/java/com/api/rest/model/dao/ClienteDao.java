@@ -1,4 +1,7 @@
 package com.api.rest.model.dao;
 
-public interface ClienteDao  {
+import com.api.rest.model.entity.Cliente;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ClienteDao extends CrudRepository<Cliente, Integer> {
 }
