@@ -6,12 +6,11 @@ import java.util.List;
 
 public interface IClienteService {
 
-    List<Cliente> listAlll();
+    Cliente  save(Cliente cliente);
 
     Cliente findById(Integer id);
 
     void delete(Cliente cliente);
 
-    boolean existsById(Integer id);
 
 }
