@@ -4,6 +4,8 @@ package com.api.rest.controller;
 import com.api.rest.model.entity.Cliente;
 import com.api.rest.model.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,9 +16,12 @@ public class ClienteController  {
     @Autowired
     private IClienteService iClienteService;
 
-    public Cliente create(Cliente cliente){
+    @PostMapping("cliente")
+    public Cliente create(@RequestBody Cliente cliente){
         return iClienteService.save(cliente);
     }
+
+
     public Cliente update(Cliente cliente){
         return iClienteService.save(cliente);
     }
