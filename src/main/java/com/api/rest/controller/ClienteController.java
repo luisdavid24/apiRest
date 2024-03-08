@@ -1,6 +1,7 @@
 package com.api.rest.controller;
 
 
+import com.api.rest.model.dto.ClienteDto;
 import com.api.rest.model.entity.Cliente;
 import com.api.rest.model.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,13 @@ public class ClienteController  {
 
     @PostMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente create(@RequestBody Cliente cliente){
+    public Cliente create(@RequestBody ClienteDto cliente){
         return iClienteService.save(cliente);
     }
 
     @PutMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente update(@RequestBody  Cliente cliente){
+    public Cliente update(@RequestBody  ClienteDto cliente){
         return iClienteService.save(cliente);
     }
 
@@ -36,7 +37,7 @@ public class ClienteController  {
     public ResponseEntity<?> delete(@PathVariable  Integer id){
         Map<String,Object> reponse= new HashMap<>();
         try{
-             Cliente clienteDelete= iClienteService.findById(id);
+             ClienteDto clienteDelete= iClienteService.findById(id);
              iClienteService.save(clienteDelete);
 
              return new ResponseEntity<>(clienteDelete,HttpStatus.NO_CONTENT);
@@ -50,7 +51,7 @@ public class ClienteController  {
 
     @GetMapping("cliente/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Cliente showById(@PathVariable Integer id){
+    public ClienteDto showById(@PathVariable Integer id){
         return iClienteService.findById(id);
     }
 
