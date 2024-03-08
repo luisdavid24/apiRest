@@ -22,14 +22,30 @@ public class ClienteController  {
 
     @PostMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente create(@RequestBody ClienteDto cliente){
-        return iClienteService.save(cliente);
+    public ClienteDto create(@RequestBody ClienteDto clienteDto){
+        Cliente clienteSave= iClienteService.save(clienteDto);
+        return ClienteDto.builder()
+                .idCliente(clienteSave.getIdCliente())
+                .nombre(clienteSave.getNombre())
+                .apellido(clienteSave.getApellido())
+                .correo(clienteSave.getCorreo())
+                .fechaRegistro(clienteSave.getFechaRegistro())
+                .build();
     }
 
     @PutMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente update(@RequestBody  ClienteDto cliente){
-        return iClienteService.save(cliente);
+    public ClienteDto update(@RequestBody  ClienteDto clienteDto){
+        Cliente clienteUpdate= iClienteService.save(clienteDto);
+        return ClienteDto.builder()
+                .idCliente(clienteUpdate.getIdCliente())
+                .nombre(clienteUpdate.getNombre())
+                .apellido(clienteUpdate.getApellido())
+                .correo(clienteUpdate.getCorreo())
+                .fechaRegistro(clienteUpdate.getFechaRegistro())
+                .build();
+
+
     }
 
     @DeleteMapping("cliente/{id}")
@@ -37,8 +53,8 @@ public class ClienteController  {
     public ResponseEntity<?> delete(@PathVariable  Integer id){
         Map<String,Object> reponse= new HashMap<>();
         try{
-             ClienteDto clienteDelete= iClienteService.findById(id);
-             iClienteService.save(clienteDelete);
+             Cliente clienteDelete= iClienteService.findById(id);
+             iClienteService.delete(clienteDelete);
 
              return new ResponseEntity<>(clienteDelete,HttpStatus.NO_CONTENT);
         }catch (DataAccessException exDT){
@@ -52,7 +68,14 @@ public class ClienteController  {
     @GetMapping("cliente/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ClienteDto showById(@PathVariable Integer id){
-        return iClienteService.findById(id);
+        Cliente cliente=  iClienteService.findById(id);
+        return ClienteDto.builder()
+                .idCliente(cliente.getIdCliente())
+                .nombre(cliente.getNombre())
+                .apellido(cliente.getApellido())
+                .correo(cliente.getCorreo())
+                .fechaRegistro(cliente.getFechaRegistro())
+                .build();
     }
 
 

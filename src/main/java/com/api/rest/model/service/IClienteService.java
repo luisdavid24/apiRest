@@ -11,7 +11,7 @@ public interface IClienteService {
 
     Cliente findById(Integer id);
 
-    void delete(ClienteDto cliente);
+    void delete(Cliente cliente);
 
 
 }
