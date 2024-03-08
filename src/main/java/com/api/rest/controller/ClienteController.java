@@ -44,7 +44,7 @@ public class ClienteController  {
             reponse.put("Mensaje",exDT.getMessage());
             reponse.put("CLiente",null);
 
-            return new ResponseEntity<>(reponse,HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(reponse,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
