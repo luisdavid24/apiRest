@@ -4,8 +4,13 @@ package com.api.rest.controller;
 import com.api.rest.model.entity.Cliente;
 import com.api.rest.model.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,9 +33,19 @@ public class ClienteController  {
 
     @DeleteMapping("cliente/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void  delete(@PathVariable  Integer id){
-         Cliente clienteDelete= iClienteService.findById(id);
-         iClienteService.save(clienteDelete);
+    public ResponseEntity<?> delete(@PathVariable  Integer id){
+        Map<String,Object> reponse= new HashMap<>();
+        try{
+             Cliente clienteDelete= iClienteService.findById(id);
+             iClienteService.save(clienteDelete);
+
+             return new ResponseEntity<>(clienteDelete,HttpStatus.NO_CONTENT);
+        }catch (DataAccessException exDT){
+            reponse.put("Mensaje",exDT.getMessage());
+            reponse.put("CLiente",null);
+
+            return new ResponseEntity<>(reponse,HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("cliente/{id}")
