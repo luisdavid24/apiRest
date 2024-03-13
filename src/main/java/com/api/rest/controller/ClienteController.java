@@ -3,6 +3,7 @@ package com.api.rest.controller;
 
 import com.api.rest.model.dto.ClienteDto;
 import com.api.rest.model.entity.Cliente;
+import com.api.rest.model.payload.MensajeResponse;
 import com.api.rest.model.service.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -51,17 +52,20 @@ public class ClienteController  {
     @DeleteMapping("cliente/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> delete(@PathVariable  Integer id){
-        Map<String,Object> reponse= new HashMap<>();
+        //Map<String,Object> reponse= new HashMap<>();
         try{
              Cliente clienteDelete= iClienteService.findById(id);
              iClienteService.delete(clienteDelete);
 
              return new ResponseEntity<>(clienteDelete,HttpStatus.NO_CONTENT);
         }catch (DataAccessException exDT){
-            reponse.put("Mensaje",exDT.getMessage());
-            reponse.put("CLiente",null);
 
-            return new ResponseEntity<>(reponse,HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(MensajeResponse
+                    .builder()
+                    .mensaje(exDT.getMessage())
+                    .object(null)
+                    .build()
+                    ,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
