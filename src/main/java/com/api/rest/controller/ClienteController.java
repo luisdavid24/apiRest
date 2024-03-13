@@ -24,6 +24,7 @@ public class ClienteController  {
     @PostMapping("cliente")
     @ResponseStatus(HttpStatus.CREATED)
     public ClienteDto create(@RequestBody ClienteDto clienteDto){
+        
         Cliente clienteSave= iClienteService.save(clienteDto);
         return ClienteDto.builder()
                 .idCliente(clienteSave.getIdCliente())
